@@ -1,0 +1,31 @@
+[package]
+name = "tts-workshop"
+version = "0.1.0"
+description = "A TTS workbench powered by Fish Speech API, built with Tauri 2.0"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "tts_workshop_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["protocol-asset"] }
+tauri-plugin-shell = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sqlx = { version = "0.7", features = ["runtime-tokio", "sqlite"] }
+tokio = { version = "1", features = ["full"] }
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+base64 = "0.22"
+reqwest = { version = "0.12", features = ["json", "multipart"] }
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

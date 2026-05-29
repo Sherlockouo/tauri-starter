@@ -1,0 +1,44 @@
+/**
+ * §5: Shell CSS — This file exists as reference.
+ * The actual shell CSS is INLINED in index.html <style> tag
+ * for instant first paint (<50ms, no network/bundle dependency).
+ *
+ * If you modify the shell layout, update BOTH this file and index.html.
+ * The shell provides the 3-column grid skeleton that's visible before JS loads.
+ */
+
+:root {
+  --shell-bg: #ffffff;
+  --shell-sidebar: #f3f4f6;
+  --shell-border: #e5e7eb;
+}
+
+:root[data-theme="dark"] {
+  --shell-bg: #0c0c1d;
+  --shell-sidebar: #0f0f26;
+  --shell-border: #1e293b;
+}
+
+body {
+  background: var(--shell-bg);
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  height: 100vh;
+}
+
+.shell-sidebar {
+  background: var(--shell-sidebar);
+  border-right: 1px solid var(--shell-border);
+}
+
+.shell-main {
+  background: var(--shell-bg);
+}
+
+.shell-history {
+  background: var(--shell-sidebar);
+  border-left: 1px solid var(--shell-border);
+}
