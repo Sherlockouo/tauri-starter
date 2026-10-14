@@ -1,9 +1,10 @@
 import { defineConfig } from "vite";
-import solidPlugin from "vite-plugin-solid";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
-// §4: Code Splitting — Vite route-level chunks, each view is its own chunk
+// Code splitting — Vite chunks, CommandPalette lazy-loads its own chunk
 export default defineConfig({
-  plugins: [solidPlugin()],
+  plugins: [react(), tailwindcss()],
   // Prevent vite from obscuring rust error messages
   clearScreen: false,
   server: {
@@ -17,12 +18,11 @@ export default defineConfig({
   build: {
     // Tauri uses Chromium on Windows/Linux, WebKit on macOS
     target: "esnext",
-    // §4: Route-level code splitting
     rollupOptions: {
       output: {
-        manualChunks: {
-          "vendor-flexsearch": ["flexsearch"],
-          "vendor-solid": ["solid-js", "solid-js/web", "solid-js/store"],
+        // Vite 8 (rolldown) requires the function form
+        manualChunks: (id) => {
+          if (/node_modules\/react(-dom)?\//.test(id)) return "vendor-react";
         },
       },
     },
